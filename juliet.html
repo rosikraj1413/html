@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* You can use CSS to style the marquee text */
+        .marquee-text {
+            font-size: 24px;
+            color: blue;
+        }
+    </style>
+    <script>
+        let marqueePaused = false;
+
+        function toggleMarquee() {
+            const marquee = document.querySelector('.marquee');
+            if (marqueePaused) {
+                marquee.start();
+            } else {
+                marquee.stop();
+            }
+            marqueePaused = !marqueePaused;
+        }
+    </script>
+</head>
+<body>
+    <marquee behavior="scroll" direction="left" class="marquee">
+        <span class="marquee-text">This is a simple marquee element.</span>
+        <form action="zoro.html" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age"><br>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department"><br>
+
+            <label for="study">Study:</label>
+            <input type="text" id="study" name="study"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <!-- Add more fields as needed -->
+
+            <input type="submit" value="Submit">
+        </form>
+    </marquee>
+    <button onclick="toggleMarquee()">Pause/Start Marquee</button>
+</body>
+</html>
