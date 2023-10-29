@@ -1,0 +1,23 @@
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.container{
+  float: right;
+  display: flex;
+  margin-top: -659px;
+  margin-right: 326px
+}
+
+.image{
+  width:100px; 
+  height:80px;
+}
+
+#heading{
+  background-color: red;
+  width: fit-content;
+}
+
