@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read More Example</title>
+    <style>
+        /* CSS to remove the border of the button */
+        #read-more-button {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <p>Some initial content here.</p>
+    <p id="extra-content" style="display: none;">This is the extra content that will be revealed when you click "Read More."</p>
+    <button id="read-more-button">Read More</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const readMoreButton = document.getElementById("read-more-button");
+            const extraContent = document.getElementById("extra-content");
+
+            readMoreButton.addEventListener("click", function() {
+                if (extraContent.style.display === "none" || extraContent.style.display === "") {
+                    extraContent.style.display = "block";
+                    readMoreButton.textContent = "Read Less";
+                } else {
+                    extraContent.style.display = "none";
+                    readMoreButton.textContent = "Read More";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
