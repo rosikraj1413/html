@@ -1,0 +1,120 @@
+body {
+  color: rgb(0, 0, 255);
+  background: aqua;
+  font: normal 16px Arial, Helvetica, sans-serif;
+  line-height: 1.6em;
+  margin: 0%;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+}
+.button{
+  background-color: #000;
+  color: white;
+  padding: 10px, 15px;
+  border:none;
+
+}
+.button:hover{
+  background:green;
+  color: aquamarine;
+}
+.clr{
+  clear: both;
+}
+
+.box-1 {
+  background-color: #333;
+  color: #fff;
+  border: 5px goldenrod solid;
+  /* border-width: 20px; width= for border thickness */
+  /* border-bottom-width: 20px;  for bottom thickness we use these*/
+  border-bottom-style:dotted; /* line is replace with dots */
+
+  padding: 20px;
+  /* margin-top: 20px; */
+  margin: 20px 0;
+}
+.box-1 h1{
+  font-family: tahoma;
+  font-weight: 900;
+  font-style: italic;
+  text-decoration:underline ;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  word-spacing: 1em;
+}
+.box-2 {
+  border: 3px dotted #ccc;
+  padding: 20px;
+  margin: 20px 0  ;
+}
+
+.categories{
+  border: 1px solid #333;
+  padding: 20px;
+  border-radius: 25px ;
+  margin: 25px 0;
+
+}
+.categories h2{
+  text-align: center;
+}
+.categories ul{
+  padding: 0;
+  /* list-style:square ; */
+  padding-left: 26px;
+  list-style: none;
+}
+.categories li {
+  padding-bottom: 6px;
+  border-bottom: dotted 2px #333;
+  list-style-image: url('images/tick.png');
+}
+
+a{
+  text-decoration: none; /* remove the line in the link */
+  color: #000;
+}
+
+a:hover{ /* when we click with mouse it will show read color */
+  color: red;
+
+}
+
+a:active{
+  color: green;
+}
+
+.my-form{
+  padding: 20px;
+}
+.my-form.form-group{
+  padding-bottom: 16px;
+}
+.my-form label{
+  display: block;
+}
+
+.my-form input[type="text"] , input[type="email"], .my-form textarea{
+  padding: 8px;
+  width: 25%;
+}
+
+.block{
+  float: left;
+  width: 33.3%;
+  border: 1px solid #ccc;
+   padding: 10px;
+   columns: white;
+   box-sizing: border-box; 
+   background-image: url(images/nami.jpeg);
+   background-repeat:no-repeat;
+   background-position: 333px  350px ;
+   background-position: center top;
+
+}
+
+

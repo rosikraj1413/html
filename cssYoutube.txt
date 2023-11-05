@@ -1,0 +1,89 @@
+to reset the default padding for the <h> and <P>
+we use :
+*{
+	margin:0;
+	padding:0; (it will reset all the default padding )
+}
+
+color: to change the color of the text 
+background-color:to change the background color
+background: blue; (same to change the background color)
+color:rgb(0,0,255); ( (255 is blue)  we can give in these way also)
+
+///////////////////////////////
+for text:
+
+font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+
+(or)
+
+font: normal 16px Arial, Helvetica, sans-serif;
+
+margin : starting of the paragraph ( like page 0 means start and 50 means in middle of the page the content will be)
+margin : auto; =spaciong around the element
+Hexa Decimals : like codes
+#333 = black
+#fff = white
+///////////////////////////////////////////////
+margin vs padding 
+==> both are for the same use "space around the element"
+
+Box Model:
+==>content = div or paragraph or a or heading
+==> padding =  space in b/w that content/element and its border/edge
+==> margin = space outside the content/element
+
+Margin & padding Shorthand:
+
+p {
+margin-top:5px;
+margin-bottom:5px;
+margin-right:10px;
+margin-left:30px;
+    }
+
+or 
+p{
+	margin:5px 10px 5px 10px;(top,right,bottom,left)
+	clock-wise(top,right,bottom,left)
+}
+or
+p{
+	margin:5px 10px ; (5=top and bottom and 10=left and right)
+}
+or
+p{
+	margin:5px; (for all)
+}
+
+==> Similarly , with padding (top,right,bottom,left)
+
+////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////
+
+id = unique use onces
+class = use somewhere else (always use class)
+
+
+////////////////////////////////
+
+to add gap between lines we use :
+line-height: 1.6em;
+
+20.05 stop
+https://youtu.be/yfoY53QXEnI?si=hWJqSxeRqMZt-wQs
+
+flexbox in css
+https://youtu.be/JJSoEo8JSnc?si=82efYTq2qBwHnlDe
+
+css grid layout:
+https://youtu.be/jV8B24rSN5o?si=MW15Uxo6BVA2O6rj
+
+for java script:
+https://youtu.be/hdI2bqOjy3c?si=_uirvVbmcU2s4Kxu
