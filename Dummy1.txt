@@ -1,0 +1,50 @@
+<link rel="icon" href="%PUBLIC_URL%/favicon.ico" type="image/x-icon">
+<style>
+  /* Define the CSS animation for continuous rotation */
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+,........
+import React, { Component } from 'react';
+
+class App extends Component {
+  startRotatingFavicon = () => {
+    const link = document.querySelector("link[rel*='icon']");
+    if (link) {
+      link.classList.add('rotate-favicon');
+    }
+  }
+
+  stopRotatingFavicon = () => {
+    const link = document.querySelector("link[rel*='icon']");
+    if (link) {
+      link.classList.remove('rotate-favicon');
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.startRotatingFavicon}>Start Rotating Favicon</button>
+        <button onClick={this.stopRotatingFavicon}>Stop Rotating Favicon</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+............
+/* Define the CSS animation for continuous rotation */
+.rotate-favicon {
+  animation: rotate 2s linear infinite; /* Adjust the duration and timing function as needed */
+}
+.............
+
