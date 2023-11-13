@@ -1,0 +1,134 @@
+// Registration.js
+
+import React, { useState } from 'react';
+import './Registration.css';
+
+const Registration = () => {
+  const initialState = {
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+
+  const [formData, setFormData] = useState(initialState);
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value.trim() === '') {
+        newErrors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} cannot be empty`;
+      } else if (key === 'username' && value.length < 3) {
+        newErrors.username = 'Username must be at least 3 characters';
+      } else if (key === 'email') {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          newErrors.email = 'Invalid email address';
+        }
+      } else if (key === 'password') {
+        const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+        if (!passwordRegex.test(value)) {
+          newErrors.password =
+            'Password must be at least 8 characters, and include at least one letter and one number';
+        }
+      } else if (key === 'confirmPassword' && value !== formData.password) {
+        newErrors.confirmPassword = 'Passwords do not match';
+      }
+    });
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      console.log('Registration successful');
+      setFormData(initialState);
+      setErrors({});
+    }
+  };
+
+  return (
+    <div className="registration-container">
+      <form onSubmit={handleSubmit} className="registration-form">
+        {Object.keys(initialState).map((key) => (
+          <div key={key}>
+            <label>
+              {key.charAt(0).toUpperCase() + key.slice(1)}:
+              <input
+                type={key === 'password' || key === 'confirmPassword' ? 'password' : 'text'}
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                required
+              />
+              {errors[key] && <p className="error">{errors[key]}</p>}
+            </label>
+          </div>
+        ))}
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
+
+export default Registration;
+//////
+/* Registration.css */
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.registration-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
