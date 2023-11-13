@@ -13,6 +13,7 @@ const Registration = () => {
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
+  const [registrationStatus, setRegistrationStatus] = useState(null);
 
   const validateForm = () => {
     const newErrors = {};
@@ -53,8 +54,11 @@ const Registration = () => {
 
     if (validateForm()) {
       console.log('Registration successful');
+      setRegistrationStatus('success');
       setFormData(initialState);
       setErrors({});
+    } else {
+      setRegistrationStatus(null);
     }
   };
 
@@ -77,19 +81,24 @@ const Registration = () => {
           </div>
         ))}
         <button type="submit">Register</button>
+        {registrationStatus === 'success' && (
+          <p className="success-message">Registration successful!</p>
+        )}
       </form>
     </div>
   );
 };
 
 export default Registration;
-//////
+
+////////
 /* Registration.css */
 
 .registration-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
 }
 
@@ -100,6 +109,7 @@ export default Registration;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Ensure positioning for the success message */
 }
 
 label {
@@ -110,6 +120,7 @@ label {
 input {
   width: 100%;
   padding: 8px;
+  margin-top: 5px;
   margin-bottom: 10px;
   box-sizing: border-box;
 }
@@ -131,4 +142,15 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+
+.success-message {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 0 5px 0 5px;
+  margin-top: 10px;
 }
