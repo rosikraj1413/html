@@ -53,6 +53,16 @@ const Registration = () => {
     if (validateForm()) {
       // Mock registration logic (replace with your actual logic)
       alert('Registration successful');
+
+      // Reset the form for a new registration
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+
+      setErrors({});
     } else {
       alert('Form has errors. Please fix them.');
     }
