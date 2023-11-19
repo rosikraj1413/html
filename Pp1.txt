@@ -1,13 +1,96 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const App = () => {
-  const navigate = useNavigate();
+const NavBar = ({ onLogin, onRegister }) => {
   const [showLoginOptions, setShowLoginOptions] = useState(false);
 
   const handleLoginClick = () => {
     setShowLoginOptions(!showLoginOptions);
   };
+
+  return (
+    <nav className="bg-gray-800 p-4 text-white">
+      <div className="flex justify-between items-center">
+        <div>
+          <span className="text-lg font-semibold">Pharma Easy</span>
+        </div>
+        <div className="space-x-4">
+          <div className="relative inline-block text-left">
+            <button className="hover:underline" onClick={handleLoginClick}>
+              Login
+            </button>
+            {showLoginOptions && (
+              <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                <div
+                  className="py-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="options-menu"
+                >
+                  <button
+                    onClick={() => onLogin("customer")}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                  >
+                    Customer
+                  </button>
+                  <button
+                    onClick={() => onLogin("vendor")}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                    role="menuitem"
+                  >
+                    Vendor
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          <button className="hover:underline" onClick={() => onRegister("customer")}>
+            Register Customer
+          </button>
+          <button className="hover:underline" onClick={() => onRegister("vendor")}>
+            Register Vendor
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const BodySection = () => (
+  <section className="bg-white dark:bg-gray-900">
+    <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+        <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
+          Pharma Easy
+        </span>
+      </h1>
+      <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-16">
+        Get your Medicines to your door step Anywhere AnyTime
+      </p>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-gray-800 text-white p-4">
+    <div className="flex justify-between items-center">
+      <div>
+        <span className="font-semibold">Company</span>
+      </div>
+      <div>
+        <span>Our Policies</span>
+      </div>
+      <div className="flex space-x-2">
+        <span>Social</span>
+        <span>Shopping</span>
+      </div>
+    </div>
+  </footer>
+);
+
+const App = () => {
+  const navigate = useNavigate();
 
   const handleLogin = (userType) => {
     if (userType === "customer") {
@@ -15,7 +98,6 @@ const App = () => {
     } else if (userType === "vendor") {
       navigate('/vendor-login');
     }
-    setShowLoginOptions(false);
   };
 
   const handleRegister = (userType) => {
@@ -28,69 +110,9 @@ const App = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Pharma Easy
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  onClick={handleLoginClick}
-                >
-                  Login
-                </a>
-                <ul className={`dropdown-menu ${showLoginOptions ? "show" : ""}`} aria-labelledby="navbarDropdown">
-                  <li>
-                    <a className="dropdown-item" onClick={() => handleLogin("customer")}>
-                      Customer
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" onClick={() => handleLogin("vendor")}>
-                      Vendor
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" onClick={() => handleRegister("customer")}>
-                  Register Customer
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" onClick={() => handleRegister("vendor")}>
-                  Register Vendor
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <div className="container">
-        {/* Your other content */}
-        <h1 className="mt-4">Pharma Easy</h1>
-        <p>Get your Medicines to your door step Anywhere AnyTime</p>
-      </div>
+      <NavBar onLogin={handleLogin} onRegister={handleRegister} />
+      <BodySection />
+      <Footer />
     </div>
   );
 };
