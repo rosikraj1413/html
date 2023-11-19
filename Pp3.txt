@@ -1,0 +1,115 @@
+// App.js
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./styles.css"; // Import the CSS file
+
+const NavBar = ({ onLogin, onRegister }) => {
+  const [selectedLoginOption, setSelectedLoginOption] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if (selectedLoginOption === "customer") {
+      navigate('/customer-login');
+    } else if (selectedLoginOption === "vendor") {
+      navigate('/vendor-login');
+    }
+  };
+
+  const handleRegister = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-register');
+    } else if (userType === "vendor") {
+      navigate('/vendor-register');
+    }
+  };
+
+  return (
+    <nav className="navbar">
+      <div className="nav-container">
+        <div>
+          <span className="brand">Pharma Easy</span>
+        </div>
+        <div className="nav-options">
+          <label className="nav-label">Choose an option:</label>
+          <select
+            className="nav-select"
+            value={selectedLoginOption}
+            onChange={(e) => setSelectedLoginOption(e.target.value)}
+          >
+            <option value="" disabled>
+              Choose an option
+            </option>
+            <option value="customer">Customer</option>
+            <option value="vendor">Vendor</option>
+          </select>
+          <button className="nav-btn" onClick={handleLogin}>
+            Login
+          </button>
+          {selectedLoginOption === "customer" && (
+            <button className="nav-btn" onClick={() => onRegister("customer")}>
+              Register Customer
+            </button>
+          )}
+          {selectedLoginOption === "vendor" && (
+            <button className="nav-btn" onClick={() => onRegister("vendor")}>
+              Register Vendor
+            </button>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const BodySection = () => (
+  <section className="body-section">
+    <div className="section">
+      <h1 className="main-title">
+        <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
+          Pharma Easy
+        </span>
+      </h1>
+      <p className="main-text">
+        Get your Medicines to your door step Anywhere AnyTime
+      </p>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="footer">
+    <div className="footer-content">
+      <div>
+        <span className="footer-title">Company</span>
+      </div>
+      <div>
+        <span>Our Policies</span>
+      </div>
+      <div className="flex space-x-2">
+        <span>Social</span>
+        <span>Shopping</span>
+      </div>
+    </div>
+  </footer>
+);
+
+const App = () => {
+  const handleRegister = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-register');
+    } else if (userType === "vendor") {
+      navigate('/vendor-register');
+    }
+  };
+
+  return (
+    <div>
+      <NavBar onRegister={handleRegister} />
+      <BodySection />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
