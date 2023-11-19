@@ -1,0 +1,96 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const NavBar = ({ onLogin, onRegister }) => {
+  const [selectedLoginOption, setSelectedLoginOption] = useState(null);
+
+  const handleLoginClick = (userType) => {
+    setSelectedLoginOption(userType);
+  };
+
+  const handleLogin = () => {
+    if (selectedLoginOption) {
+      onLogin(selectedLoginOption);
+    }
+  };
+
+  return (
+    <nav className="bg-gray-800 p-4 text-white">
+      <div className="flex justify-between items-center">
+        <div>
+          <span className="text-lg font-semibold">Pharma Easy</span>
+        </div>
+        <div className="space-x-4">
+          <div className="relative inline-block text-left">
+            <button
+              onClick={() => handleLoginClick(null)}
+              className="hover:underline focus:outline-none"
+            >
+              Login
+            </button>
+            {selectedLoginOption && (
+              <div className="absolute right-0 mt-2 space-y-2 bg-white border border-gray-200 rounded-md shadow-md">
+                <button
+                  onClick={() => {
+                    handleLoginClick("customer");
+                    handleLogin();
+                  }}
+                  className="block w-full px-4 py-2 text-left hover:bg-gray-200"
+                >
+                  Customer
+                </button>
+                <button
+                  onClick={() => {
+                    handleLoginClick("vendor");
+                    handleLogin();
+                  }}
+                  className="block w-full px-4 py-2 text-left hover:bg-gray-200"
+                >
+                  Vendor
+                </button>
+              </div>
+            )}
+          </div>
+          <button className="hover:underline" onClick={() => onRegister("customer")}>
+            Register Customer
+          </button>
+          <button className="hover:underline" onClick={() => onRegister("vendor")}>
+            Register Vendor
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+// ... (BodySection and Footer components remain unchanged)
+
+const App = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-login');
+    } else if (userType === "vendor") {
+      navigate('/vendor-login');
+    }
+  };
+
+  const handleRegister = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-register');
+    } else if (userType === "vendor") {
+      navigate('/vendor-register');
+    }
+  };
+
+  return (
+    <div>
+      <NavBar onLogin={handleLogin} onRegister={handleRegister} />
+      <BodySection />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
