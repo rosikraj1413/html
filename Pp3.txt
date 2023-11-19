@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css"; // Import the CSS file
 
 const NavBar = ({ onLogin, onRegister }) => {
-  const [selectedLoginOption, setSelectedLoginOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (selectedLoginOption === "customer") {
+    if (selectedOption === "customer") {
       navigate('/customer-login');
-    } else if (selectedLoginOption === "vendor") {
+    } else if (selectedOption === "vendor") {
       navigate('/vendor-login');
     }
   };
@@ -34,8 +34,8 @@ const NavBar = ({ onLogin, onRegister }) => {
           <label className="nav-label">Choose an option:</label>
           <select
             className="nav-select"
-            value={selectedLoginOption}
-            onChange={(e) => setSelectedLoginOption(e.target.value)}
+            value={selectedOption}
+            onChange={(e) => setSelectedOption(e.target.value)}
           >
             <option value="" disabled>
               Choose an option
@@ -43,22 +43,26 @@ const NavBar = ({ onLogin, onRegister }) => {
             <option value="customer">Customer</option>
             <option value="vendor">Vendor</option>
           </select>
-          {selectedLoginOption === "customer" && (
-            <button className="nav-btn" onClick={() => onLogin("customer")}>
-              Login
-            </button>
+          {selectedOption === "customer" && (
+            <>
+              <button className="nav-btn" onClick={() => onLogin("customer")}>
+                Login
+              </button>
+              <button className="nav-btn" onClick={() => handleRegister("customer")}>
+                Register Customer
+              </button>
+            </>
           )}
-          {selectedLoginOption === "vendor" && (
-            <button className="nav-btn" onClick={() => onLogin("vendor")}>
-              Login
-            </button>
+          {selectedOption === "vendor" && (
+            <>
+              <button className="nav-btn" onClick={() => onLogin("vendor")}>
+                Login
+              </button>
+              <button className="nav-btn" onClick={() => handleRegister("vendor")}>
+                Register Vendor
+              </button>
+            </>
           )}
-          <button className="nav-btn" onClick={() => handleRegister("customer")}>
-            Register Customer
-          </button>
-          <button className="nav-btn" onClick={() => handleRegister("vendor")}>
-            Register Vendor
-          </button>
         </div>
       </div>
     </nav>
