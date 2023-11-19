@@ -63,7 +63,37 @@ const NavBar = ({ onLogin, onRegister }) => {
   );
 };
 
-// ... (BodySection and Footer components remain unchanged)
+const BodySection = () => (
+  <section className="bg-white dark:bg-gray-900">
+    <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+        <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
+          Pharma Easy
+        </span>
+      </h1>
+      <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-16">
+        Get your Medicines to your door step Anywhere AnyTime
+      </p>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-gray-800 text-white p-4">
+    <div className="flex justify-between items-center">
+      <div>
+        <span className="font-semibold">Company</span>
+      </div>
+      <div>
+        <span>Our Policies</span>
+      </div>
+      <div className="flex space-x-2">
+        <span>Social</span>
+        <span>Shopping</span>
+      </div>
+    </div>
+  </footer>
+);
 
 const App = () => {
   const navigate = useNavigate();
