@@ -1,0 +1,95 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const NavBar = ({ onLogin, onRegister }) => {
+  const navigate = useNavigate();
+
+  const handleLogin = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-login');
+    } else if (userType === "vendor") {
+      navigate('/vendor-login');
+    }
+  };
+
+  const handleRegister = (userType) => {
+    if (userType === "customer") {
+      navigate('/customer-register');
+    } else if (userType === "vendor") {
+      navigate('/vendor-register');
+    }
+  };
+
+  return (
+    <nav className="bg-gray-800 p-4 text-white">
+      <div className="flex justify-between items-center">
+        <div>
+          <span className="text-lg font-semibold">Pharma Easy</span>
+        </div>
+        <div className="space-x-4">
+          <label className="text-white">Login:</label>
+          <select
+            className="border rounded-md p-1"
+            onChange={(e) => handleLogin(e.target.value)}
+          >
+            <option value="" disabled selected hidden>
+              Choose an option
+            </option>
+            <option value="customer">Customer</option>
+            <option value="vendor">Vendor</option>
+          </select>
+          <button className="hover:underline" onClick={() => onRegister("customer")}>
+            Register Customer
+          </button>
+          <button className="hover:underline" onClick={() => onRegister("vendor")}>
+            Register Vendor
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const BodySection = () => (
+  <section className="bg-white dark:bg-gray-900">
+    <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+        <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
+          Pharma Easy
+        </span>
+      </h1>
+      <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-16">
+        Get your Medicines to your door step Anywhere AnyTime
+      </p>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="bg-gray-800 text-white p-4">
+    <div className="flex justify-between items-center">
+      <div>
+        <span className="font-semibold">Company</span>
+      </div>
+      <div>
+        <span>Our Policies</span>
+      </div>
+      <div className="flex space-x-2">
+        <span>Social</span>
+        <span>Shopping</span>
+      </div>
+    </div>
+  </footer>
+);
+
+const App = () => {
+  return (
+    <div>
+      <NavBar />
+      <BodySection />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
