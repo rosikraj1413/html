@@ -43,19 +43,22 @@ const NavBar = ({ onLogin, onRegister }) => {
             <option value="customer">Customer</option>
             <option value="vendor">Vendor</option>
           </select>
-          <button className="nav-btn" onClick={handleLogin}>
-            Login
-          </button>
           {selectedLoginOption === "customer" && (
-            <button className="nav-btn" onClick={() => onRegister("customer")}>
-              Register Customer
+            <button className="nav-btn" onClick={() => onLogin("customer")}>
+              Login
             </button>
           )}
           {selectedLoginOption === "vendor" && (
-            <button className="nav-btn" onClick={() => onRegister("vendor")}>
-              Register Vendor
+            <button className="nav-btn" onClick={() => onLogin("vendor")}>
+              Login
             </button>
           )}
+          <button className="nav-btn" onClick={() => handleRegister("customer")}>
+            Register Customer
+          </button>
+          <button className="nav-btn" onClick={() => handleRegister("vendor")}>
+            Register Vendor
+          </button>
         </div>
       </div>
     </nav>
@@ -95,17 +98,19 @@ const Footer = () => (
 );
 
 const App = () => {
+  const handleLogin = (userType) => {
+    // Handle login for customer or vendor
+    console.log(`Login as ${userType}`);
+  };
+
   const handleRegister = (userType) => {
-    if (userType === "customer") {
-      navigate('/customer-register');
-    } else if (userType === "vendor") {
-      navigate('/vendor-register');
-    }
+    // Handle registration for customer or vendor
+    console.log(`Register as ${userType}`);
   };
 
   return (
     <div>
-      <NavBar onRegister={handleRegister} />
+      <NavBar onLogin={handleLogin} onRegister={handleRegister} />
       <BodySection />
       <Footer />
     </div>
