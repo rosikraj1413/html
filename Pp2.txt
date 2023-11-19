@@ -1,5 +1,8 @@
+// App.js
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./styles.css"; // Import the CSS file
 
 const NavBar = ({ onLogin, onRegister }) => {
   const [selectedLoginOption, setSelectedLoginOption] = useState("");
@@ -22,15 +25,15 @@ const NavBar = ({ onLogin, onRegister }) => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 text-white">
-      <div className="flex justify-between items-center">
+    <nav className="navbar">
+      <div className="nav-container">
         <div>
-          <span className="text-lg font-semibold">Pharma Easy</span>
+          <span className="brand">Pharma Easy</span>
         </div>
-        <div className="space-x-4">
-          <label className="text-white">Login:</label>
+        <div className="nav-options">
+          <label className="nav-label">Login:</label>
           <select
-            className="border rounded-md p-1 bg-gray-200 text-gray-800"
+            className="nav-select"
             value={selectedLoginOption}
             onChange={(e) => setSelectedLoginOption(e.target.value)}
           >
@@ -40,13 +43,13 @@ const NavBar = ({ onLogin, onRegister }) => {
             <option value="customer">Customer</option>
             <option value="vendor">Vendor</option>
           </select>
-          <button className="hover:underline" onClick={handleLogin}>
+          <button className="nav-btn" onClick={handleLogin}>
             Login
           </button>
-          <button className="hover:underline" onClick={() => onRegister("customer")}>
+          <button className="nav-btn" onClick={() => onRegister("customer")}>
             Register Customer
           </button>
-          <button className="hover:underline" onClick={() => onRegister("vendor")}>
+          <button className="nav-btn" onClick={() => onRegister("vendor")}>
             Register Vendor
           </button>
         </div>
@@ -56,14 +59,14 @@ const NavBar = ({ onLogin, onRegister }) => {
 };
 
 const BodySection = () => (
-  <section className="bg-white dark:bg-gray-900">
-    <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-      <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+  <section className="body-section">
+    <div className="section">
+      <h1 className="main-title">
         <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
           Pharma Easy
         </span>
       </h1>
-      <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-16">
+      <p className="main-text">
         Get your Medicines to your door step Anywhere AnyTime
       </p>
     </div>
@@ -71,10 +74,10 @@ const BodySection = () => (
 );
 
 const Footer = () => (
-  <footer className="bg-gray-800 text-white p-4">
-    <div className="flex justify-between items-center">
+  <footer className="footer">
+    <div className="footer-content">
       <div>
-        <span className="font-semibold">Company</span>
+        <span className="footer-title">Company</span>
       </div>
       <div>
         <span>Our Policies</span>
@@ -98,3 +101,100 @@ const App = () => {
 };
 
 export default App;
+
+/////////////////
+
+/* styles.css */
+
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation Bar Styles */
+nav {
+  background-color: #333;
+  padding: 1rem;
+}
+
+nav .nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-options > * + * {
+  margin-left: 1rem;
+}
+
+.nav-label {
+  color: white;
+}
+
+.nav-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: #eee;
+  color: #333;
+}
+
+/* Body Section Styles */
+section {
+  background-color: #fff;
+}
+
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.main-text {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+.footer-content {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-content .footer-title {
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-options > * + * {
+    margin-top: 0.5rem;
+    margin-left: 0;
+  }
+}
