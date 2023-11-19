@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ onLogin, onRegister }) => {
+  const [selectedLoginOption, setSelectedLoginOption] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (userType) => {
-    if (userType === "customer") {
+  const handleLogin = () => {
+    if (selectedLoginOption === "customer") {
       navigate('/customer-login');
-    } else if (userType === "vendor") {
+    } else if (selectedLoginOption === "vendor") {
       navigate('/vendor-login');
     }
   };
@@ -29,15 +30,19 @@ const NavBar = ({ onLogin, onRegister }) => {
         <div className="space-x-4">
           <label className="text-white">Login:</label>
           <select
-            className="border rounded-md p-1"
-            onChange={(e) => handleLogin(e.target.value)}
+            className="border rounded-md p-1 bg-gray-200 text-gray-800"
+            value={selectedLoginOption}
+            onChange={(e) => setSelectedLoginOption(e.target.value)}
           >
-            <option value="" disabled selected hidden>
+            <option value="" disabled>
               Choose an option
             </option>
             <option value="customer">Customer</option>
             <option value="vendor">Vendor</option>
           </select>
+          <button className="hover:underline" onClick={handleLogin}>
+            Login
+          </button>
           <button className="hover:underline" onClick={() => onRegister("customer")}>
             Register Customer
           </button>
