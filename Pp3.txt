@@ -1,17 +1,16 @@
 // App.js
 
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css"; // Import the CSS file
 
 const NavBar = ({ onLogin, onRegister }) => {
-  const [selectedOption, setSelectedOption] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (selectedOption === "customer") {
+  const handleLogin = (userType) => {
+    if (userType === "customer") {
       navigate('/customer-login');
-    } else if (selectedOption === "vendor") {
+    } else if (userType === "vendor") {
       navigate('/vendor-login');
     }
   };
@@ -31,38 +30,21 @@ const NavBar = ({ onLogin, onRegister }) => {
           <span className="brand">Pharma Easy</span>
         </div>
         <div className="nav-options">
-          <label className="nav-label">Choose an option:</label>
-          <select
-            className="nav-select"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-          >
-            <option value="" disabled>
-              Choose an option
-            </option>
-            <option value="customer">Customer</option>
-            <option value="vendor">Vendor</option>
-          </select>
-          {selectedOption === "customer" && (
-            <>
-              <button className="nav-btn" onClick={() => onLogin("customer")}>
-                Login
-              </button>
-              <button className="nav-btn" onClick={() => handleRegister("customer")}>
-                Register Customer
-              </button>
-            </>
-          )}
-          {selectedOption === "vendor" && (
-            <>
-              <button className="nav-btn" onClick={() => onLogin("vendor")}>
-                Login
-              </button>
-              <button className="nav-btn" onClick={() => handleRegister("vendor")}>
-                Register Vendor
-              </button>
-            </>
-          )}
+          <div className="login-dropdown">
+            <button className="login-btn" onClick={() => onLogin("customer")}>
+              Login
+            </button>
+            <div className="login-options">
+              <button onClick={() => onLogin("customer")}>Customer</button>
+              <button onClick={() => onLogin("vendor")}>Vendor</button>
+            </div>
+          </div>
+          <button className="login-btn" onClick={() => onRegister("customer")}>
+            Register Customer
+          </button>
+          <button className="login-btn" onClick={() => onRegister("vendor")}>
+            Register Vendor
+          </button>
         </div>
       </div>
     </nav>
@@ -71,9 +53,9 @@ const NavBar = ({ onLogin, onRegister }) => {
 
 const BodySection = () => (
   <section className="body-section">
-    <div className="section">
+    <div className="section-content">
       <h1 className="main-title">
-        <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">
+        <span className="brand-gradient-text">
           Pharma Easy
         </span>
       </h1>
@@ -102,19 +84,9 @@ const Footer = () => (
 );
 
 const App = () => {
-  const handleLogin = (userType) => {
-    // Handle login for customer or vendor
-    console.log(`Login as ${userType}`);
-  };
-
-  const handleRegister = (userType) => {
-    // Handle registration for customer or vendor
-    console.log(`Register as ${userType}`);
-  };
-
   return (
     <div>
-      <NavBar onLogin={handleLogin} onRegister={handleRegister} />
+      <NavBar />
       <BodySection />
       <Footer />
     </div>
@@ -122,3 +94,130 @@ const App = () => {
 };
 
 export default App;
+
+//////////
+
+/* styles.css */
+
+/* Navigation Bar Styles */
+.navbar {
+  background-color: #333;
+  padding: 1rem;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-options {
+  display: flex;
+  space-between: space-x-4;
+}
+
+.login-dropdown {
+  position: relative;
+}
+
+.login-btn {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.login-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 8rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-options button {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #333;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-options button:hover {
+  background-color: #f8f8f8;
+}
+
+/* Body Section Styles */
+.body-section {
+  background-color: #fff;
+}
+
+.section-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.brand-gradient-text {
+  display: block;
+  width: 100%;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #34d399, #9333ea);
+}
+
+.main-text {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-title {
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .login-options {
+    right: 1rem;
+  }
+}
