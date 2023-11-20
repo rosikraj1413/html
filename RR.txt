@@ -1,0 +1,88 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Register.css";
+
+const Register = () => {
+    const navigate = useNavigate();
+
+    const handleClickCustomer = () => navigate('/customer-home');
+    const handleClickVendor = () => navigate('/vendor-home');
+
+    return (
+        <section className="bg-white dark:bg-gray-900">
+            <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
+                <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
+                    <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">Pharma Easy</span>
+                </h1>
+                <p className="px-0 mb-8 text-lg text-gray-600 md:text-xl lg:px-16">
+                    Get your Medicines to your
+                </p>
+            </div>
+            <div className="container px-6 py-12 mx-auto">
+                <div className="lg:flex lg:items-center lg:-mx-6">
+                    <div className="mt-8 lg:w-1/2 lg:mx-6">
+                        <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
+                            <h1 className="text-lg font-medium text-gray-700">Customer Register</h1>
+
+                            <form className="mt-6" onSubmit={(e) => e.preventDefault()}>
+                                <div className="flex-1">
+                                    <label htmlFor="uid" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                                        User ID
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="uid"
+                                        placeholder="Enter your User ID"
+                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    />
+                                </div>
+
+                                {/* ... (other input fields for customer registration) */}
+
+                                <button
+                                    type="submit"
+                                    className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                                    onClick={handleClickCustomer}
+                                >
+                                    Register
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 lg:w-1/2 lg:mx-6">
+                        <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
+                            <h1 className="text-lg font-medium text-gray-700">Vendor Register</h1>
+
+                            <form className="mt-6" onSubmit={(e) => e.preventDefault()}>
+                                <div className="flex-1">
+                                    <label htmlFor="sid" className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                                        Vendor ID
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="sid"
+                                        placeholder="Enter your Vendor ID"
+                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    />
+                                </div>
+
+                                {/* ... (other input fields for vendor registration) */}
+
+                                <button
+                                    type="submit"
+                                    className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                                    onClick={handleClickVendor}
+                                >
+                                    Register
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default Register;
