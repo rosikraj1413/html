@@ -1,0 +1,194 @@
+
+/* Section Styles */
+.section {
+    background-color: #ffffff;
+    padding: 3rem;
+}
+
+.dark-section {
+    background-color: #1a202c;
+    color: #ffffff;
+}
+
+/* Heading Styles */
+.heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #68d391, #9f7aea);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Paragraph Styles */
+.paragraph {
+    font-size: 1.2rem;
+    color: #666666;
+}
+
+/* Form Styles */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.input-container {
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333333;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #2980b9;
+}
+////
+                                import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./RegisterStyles.css"; // Link the external CSS file
+
+const Register = () => {
+    const navigate = useNavigate();
+
+    const handleClickCustomer = () => navigate('/customer-home');
+    const handleClickVendor = () => navigate('/vendor-home');
+
+    return (
+        <section className="section">
+            <div className="form-container">
+                <h1 className="heading gradient-text">Customer Register</h1>
+
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <div className="input-container">
+                        <label htmlFor="uid" className="input-label">
+                            User ID
+                        </label>
+                        <input
+                            type="text"
+                            id="uid"
+                            placeholder="Enter your User ID"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="pass" className="input-label">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="pass"
+                            placeholder="Enter your password"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="fname" className="input-label">
+                            First Name
+                        </label>
+                        <input
+                            type="text"
+                            id="fname"
+                            placeholder="Enter your First Name"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="lname" className="input-label">
+                            Last Name
+                        </label>
+                        <input
+                            type="text"
+                            id="lname"
+                            placeholder="Enter your Last Name"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="email" className="input-label">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="address" className="input-label">
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            id="address"
+                            placeholder="Enter your address"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="phno" className="input-label">
+                            Phone Number
+                        </label>
+                        <input
+                            type="text"
+                            id="phno"
+                            placeholder="Enter your phone number"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="confirmPass" className="input-label">
+                            Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            id="confirmPass"
+                            placeholder="Confirm your password"
+                            className="input-field"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="submit-button"
+                        onClick={handleClickCustomer}
+                    >
+                        Register
+                    </button>
+                </form>
+            </div>
+        </section>
+    );
+};
+
+export default Register;
