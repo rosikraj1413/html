@@ -1,0 +1,228 @@
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Register = () => {
+  let navigate = useNavigate();
+
+  // State for Customer
+  const [customer, setCustomer] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+  });
+
+  // State for Vendor
+  const [vendor, setVendor] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+    license: "", // Additional field for Vendor
+    certificate: "", // Additional field for Vendor
+  });
+
+  const customerFullname = customer.fullname;
+  const customerEmail = customer.email;
+  const customerMobile = customer.mobile;
+  const customerUsername = customer.username;
+  const customerPassword = customer.password;
+
+  const vendorFullname = vendor.fullname;
+  const vendorEmail = vendor.email;
+  const vendorMobile = vendor.mobile;
+  const vendorUsername = vendor.username;
+  const vendorPassword = vendor.password;
+  const license = vendor.license;
+  const certificate = vendor.certificate;
+
+  const onInputChange = (e, entity) => {
+    const setUser = entity === "customer" ? setCustomer : setVendor;
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e, entity) => {
+    e.preventDefault();
+    const endpoint = entity === "customer" ? "http://localhost:8080/customer" : "http://localhost:8080/vendor";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Register = () => {
+  let navigate = useNavigate();
+
+  // State for Customer
+  const [customer, setCustomer] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+  });
+
+  // State for Vendor
+  const [vendor, setVendor] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+    license: "", // Additional field for Vendor
+    certificate: "", // Additional field for Vendor
+  });
+
+  const customerFullname = customer.fullname;
+  const customerEmail = customer.email;
+  const customerMobile = customer.mobile;
+  const customerUsername = customer.username;
+  const customerPassword = customer.password;
+
+  const vendorFullname = vendor.fullname;
+  const vendorEmail = vendor.email;
+  const vendorMobile = vendor.mobile;
+  const vendorUsername = vendor.username;
+  const vendorPassword = vendor.password;
+  const license = vendor.license;
+  const certificate = vendor.certificate;
+
+  const onInputChange = (e, entity) => {
+    const setUser = entity === "customer" ? setCustomer : setVendor;
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e, entity) => {
+    e.preventDefault();
+    const endpoint = entity === "customer" ? "http://localhost:8080/customer" : "http://localhost:8080/vendor";
+    const userData = entity === "customer" ? customer : vendor;
+
+    await axios.post(endpoint, userData);
+    navigate("/login");
+  };
+
+  return (
+    <section className="bg-white dark:bg-gray-900">
+      {/* Your existing JSX code */}
+      <form onSubmit={(e) => onSubmit(e, "customer")} className="mt-6">
+        <div className="flex-1">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your Full Name"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="fullname"
+            value={customerFullname}
+            onChange={(e) => onInputChange(e, "customer")}
+          />
+        </div>
+        {/* Add other fields for customer */}
+        <button
+          type="submit"
+          className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+        >
+          Register Customer
+        </button>
+      </form>
+
+      <form onSubmit={(e) => onSubmit(e, "vendor")} className="mt-6">
+        <div className="flex-1">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your Full Name"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="fullname"
+            value={vendorFullname}
+            onChange={(e) => onInputChange(e, "vendor")}
+          />
+        </div>
+        {/* Add other fields for vendor */}
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">License</label>
+          <input
+            type="text"
+            placeholder="Enter vendor license"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="license"
+            value={license}
+            onChange={(e) => onInputChange(e, "vendor")}
+          />
+        </div>
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Certificate</label>
+          <input
+            type="text"
+            placeholder="Enter vendor certificate"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="certificate"
+            value={certificate}
+            onChange={(e) => onInputChange(e, "vendor")}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+        >
+          Register Vendor
+        </button>
+      </form>
+      {/* Your existing JSX code */}
+    </section>
+  );
+};
+
+export default Register;
+￼Enter    const userData = entity === "customer" ? customer : vendor;
+
+    await axios.post(endpoint, userData);
+    navigate("/login");
+  };
+
+  return (
+    <section className="bg-white dark:bg-gray-900">
+      {/* Your existing JSX code */}
+      <form onSubmit={(e) => onSubmit(e, "customer")} className="mt-6">
+        <div className="flex-1">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your Full Name"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="fullname"
+            value={customerFullname}
+            onChange={(e) => onInputChange(e, "customer")}
+          />
+        </div>
+        {/* Add other fields for customer */}
+        <button
+          type="submit"
+          className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+        >
+    Register Customer
+        </button>
+      </form>
+
+      <form onSubmit={(e) => onSubmit(e, "vendor")} className="mt-6">
+        <div className="flex-1">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your Full Name"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="fullname"
+            value={vendorFullname}
+            onChange={(e) => onInputChange(e, "vendor")}
+          />
+        </div>
+        {/* Add other fields for vendor */}
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">License</label>
+          <input
+            type="text"
+            placeholder="Enter vendor license"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="license"
+            value={license}
+            onChange={(e) => onInputChange(e, "vendor")}
