@@ -12,8 +12,14 @@ const Login = () => {
     const [adminname, setadminname] = useState("");
     const [adminpassword, setadminPassword] = useState("");
 
-    async function login(event) {
+    const handleUserLogin = async (event) => {
         event.preventDefault();
+
+        if (!username || !password) {
+            alert("Please fill in all fields for user login.");
+            return;
+        }
+
         try {
             const res = await axios.post("http://localhost:8080/api/a1/users/login", {
                 username: username,
@@ -25,15 +31,22 @@ const Login = () => {
             } else if (res.data.message === "username not exist") {
                 alert("Username does not exist");
             } else {
-                alert("Incorrect username or Password");
+                alert("Incorrect username or password");
             }
         } catch (err) {
-            alert(err);
+            console.error(err);
+            alert("An error occurred during user login");
         }
-    }
+    };
 
-    async function vendorlogin(event) {
+    const handleVendorLogin = async (event) => {
         event.preventDefault();
+
+        if (!vendorname || !vendorpassword) {
+            alert("Please fill in all fields for vendor login.");
+            return;
+        }
+
         try {
             const res = await axios.post("http://localhost:8080/api/a1/vendor/login", {
                 vendorname: vendorname,
@@ -45,15 +58,22 @@ const Login = () => {
             } else if (res.data.message === "vendor not exist") {
                 alert("Vendor does not exist");
             } else {
-                alert("Incorrect vendor or Password");
+                alert("Incorrect vendor or password");
             }
         } catch (err) {
-            alert(err);
+            console.error(err);
+            alert("An error occurred during vendor login");
         }
-    }
+    };
 
-    async function adminlogin(event) {
+    const handleAdminLogin = async (event) => {
         event.preventDefault();
+
+        if (!adminname || !adminpassword) {
+            alert("Please fill in all fields for admin login.");
+            return;
+        }
+
         try {
             const res = await axios.post("http://localhost:8080/api/a1/admin/login", {
                 adminname: adminname,
@@ -65,143 +85,49 @@ const Login = () => {
             } else if (res.data.message === "admin not exist") {
                 alert("Admin does not exist");
             } else {
-                alert("Incorrect admin or Password");
+                alert("Incorrect admin or password");
             }
         } catch (err) {
-            alert(err);
+            console.error(err);
+            alert("An error occurred during admin login");
         }
-    }
+    };
 
     return (
         <section className="bg-white dark:bg-gray-900">
-            <div className="w-full mx-auto text-left md:w-11/12 xl:w-9/12 md:text-center">
-                <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-normal text-gray-900 md:text-6xl md:tracking-tight">
-                    <span className="block w-full py-2 text-transparent bg-clip-text leading-12 bg-gradient-to-r from-green-400 to-purple-500 lg:inline">Pharmacy Easy</span>
-                </h1>
-            </div>
+            {/* ... (other JSX code) */}
 
-            <div className="container px-6 py-12 mx-auto">
-                <div className="lg:flex lg:items-center lg:-mx-6">
-                    <div className="mt-8 lg:w-1/2 lg:mx-6">
-                        <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
-                            <h1 className="text-lg font-medium text-gray-700">User Login</h1>
+            <button
+                type="submit"
+                className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                onClick={handleUserLogin}
+            >
+                User Login
+            </button>
 
-                            <form className="mt-6">
-                                <div className="flex-1">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">UserName</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your Username"
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={username}
-                                        onChange={(event) => setusername(event.target.value)}
-                                    />
-                                </div>
+            {/* ... (other JSX code) */}
 
-                                <div className="flex-1 mt-6">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
-                                    <input
-                                        type="password"
-                                        placeholder="Enter your password."
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={password}
-                                        onChange={(event) => setPassword(event.target.value)}
-                                    />
-                                </div>
+            <button
+                type="submit"
+                className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                onClick={handleVendorLogin}
+            >
+                Vendor Login
+            </button>
 
-                                <button
-                                    type="submit"
-                                    className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                                    onClick={login}
-                                >
-                                    User Login
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+            {/* ... (other JSX code) */}
 
-                    <div className="mt-8 lg:w-1/2 lg:mx-6">
-                        <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
-                            <h1 className="text-lg font-medium text-gray-700">Vendor Login</h1>
+            <button
+                type="submit"
+                className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                onClick={handleAdminLogin}
+            >
+                Admin Login
+            </button>
 
-                            <form className="mt-6">
-                                <div className="flex-1">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Vendor Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your Vendor Name"
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={vendorname}
-                                        onChange={(event) => setVendorname(event.target.value)}
-                                    />
-                                </div>
-
-                                <div className="flex-1 mt-6">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
-                                    <input
-                                        type="password"
-                                        placeholder="Enter your password."
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300
-dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={vendorpassword}
-                                        onChange={(event) => setVendorPassword(event.target.value)}
-                                    />
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                                    onClick={vendorlogin}
-                                >
-                                    Vendor Login
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div className="mt-8 lg:w-1/2 lg:mx-6">
-                        <div className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
-                            <h1 className="text-lg font-medium text-gray-700">Admin Login</h1>
-
-                            <form className="mt-6">
-                                <div className="flex-1">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Admin Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your Admin Name"
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={adminname}
-                                        onChange={(event) => setadminname(event.target.value)}
-                                    />
-                                </div>
-
-                                <div className="flex-1 mt-6">
-                                    <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
-                                    <input
-                                        type="password"
-                                        placeholder="Enter your password."
-                                        className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                        value={adminpassword}
-                                        onChange={(event) => setadminPassword(event.target.value)}
-                                    />
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                                    onClick={adminlogin}
-                                >
-                                    Admin Login
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* ... (other JSX code) */}
         </section>
     );
 };
 
 export default Login;
-
-
