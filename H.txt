@@ -1,142 +1,116 @@
+import { Alert, Button, CardActions, CardContent, CardHeader, Divider, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { TextField } from "@mui/material";
+import "./style.css";
 
-const Captcha = ({ onCaptchaSubmit }) => {
-  const randomString = Math.random().toString(36).slice(8);
-  const [captcha, setCaptcha] = useState(randomString);
-  const [text, setText] = useState("");
-  const [valid, setValid] = useState(false);
+export const Captcha = () => {
+    const randomString = Math.random().toString(36).slice(8);
+    const [captcha, setCaptcha] = useState(randomString);
+    const [text, setText] = useState("");
+    const [valid, setValid] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-  const refreshString = () => {
-    setText("");
-    setCaptcha(Math.random().toString(36).slice(8));
-  };
+    const refreshString = () => {
+        setText("");
+        setCaptcha(Math.random().toString(36).slice(8));
+    };
 
-  const matchCaptcha = () => {
-    if (text === captcha) {
-      setValid(false);
-      onCaptchaSubmit();
-    } else {
-      setValid(true);
-    }
-  };
+    const matchCaptcha = (event) => {
+        event.preventDefault();
+        if (text === captcha) {
+            setValid(false);
+            setSuccess(true);
+        } else {
+            setValid(true);
+            setSuccess(false);
+        }
+    };
 
-  return (
-    <div className="bg-white rounded-md p-6">
-      <div className="text-2xl mb-4">{captcha}</div>
-      <div className="flex items-center mb-4">
-        <TextField
-          label="Enter Captcha"
-          focused
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          error={valid}
-          helperText={valid && "Invalid Captcha"}
-          className="mr-2"
-        />
-        <button
-          className="bg-success text-white py-2 px-4 rounded-md"
-          onClick={matchCaptcha}
-        >
-          Login
-        </button>
-      </div>
-      <div className="text-center">
-        <button
-          className="text-info hover:underline"
-          onClick={refreshString}
-        >
-          Refresh Captcha
-        </button>
-      </div>
-    </div>
-  );
+    return (
+        <React.Fragment>
+            {success && (
+                <Alert variant="outlined" sx={{ marginBottom: "50px" }}>
+                    Successful
+                </Alert>
+            )}
+            <div className="card">
+                
+                <Divider />
+
+                <CardContent>
+                    <CardActions>
+                        <div className="h3">{captcha}</div>
+                        <Button
+                            startIcon={<RefreshIcon />}
+                            onClick={() => refreshString()}
+                        ></Button>
+                    </CardActions>
+
+                    <form onSubmit={matchCaptcha}>
+                        <TextField
+                            label="Enter Captcha"
+                            focused
+                            value={text}
+                            fullWidth
+                            onChange={(e) => setText(e.target.value)}
+                            error={valid}
+                            helperText={valid && "Invalid Captcha"}
+                        />
+
+                        <Button
+                            variant="contained"
+                            color="success"
+                            type="submit"
+                            sx={{ marginTop: "20px" }}
+                        >
+                            Submit
+                        </Button>
+                    </form>
+                </CardContent>
+            </div>
+        </React.Fragment>
+    );
 };
 
-function Login() {
-  const navigate = useNavigate();
-  const [customerId, setCustomerId] = useState("");
-  const [customerPassword, setCustomerPassword] = useState("");
-  const [vendorId, setVendorId] = useState("");
-  const [vendorPassword, setVendorPassword] = useState("");
-  const [adminUsername, setAdminUsername] = useState("");
-  const [adminPassword, setAdminPassword] = useState("");
+const Login = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleLogin = async (apiEndpoint, id, password) => {
-    try {
-      const response = await axios.post(apiEndpoint, { id, password });
-      console.log(response.data);
-      navigate("/Home"); // Adjust navigation based on the response
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Validate login credentials here
+    };
 
-  return (
-    <div className="container bg-primary-subtle h-screen flex items-center justify-center">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="rounded-md p-6">
-          <h4 className="text-2xl mb-4">Customer Login</h4>
-          <TextField
-            type="text"
-            label="Customer ID"
-            value={customerId}
-            onChange={(e) => setCustomerId(e.target.value)}
-            className="mb-2"
-          />
-          <TextField
-            type="password"
-            label="Password"
-            value={customerPassword}
-            onChange={(e) => setCustomerPassword(e.target.value)}
-            className="mb-2"
-          />
-          <Captcha onCaptchaSubmit={() => handleLogin("/api/customer/login", customerId, customerPassword)} />
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    label="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                />
+                <TextField
+                    label="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    type="password"
+                />
+                <Captcha />
+                <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    sx={{ marginTop: "20px" }}
+                >
+                    Login
+                </Button>
+            </form>
         </div>
-
-        <div className="rounded-md p-6">
-          <h4 className="text-2xl mb-4">Vendor Login</h4>
-          <TextField
-            type="text"
-            label="Vendor ID"
-            value={vendorId}
-            onChange={(e) => setVendorId(e.target.value)}
-            className="mb-2"
-          />
-          <TextField
-            type="password"
-            label="Password"
-            value={vendorPassword}
-            onChange={(e) => setVendorPassword(e.target.value)}
-            className="mb-2"
-          />
-          <Captcha onCaptchaSubmit={() => handleLogin("/api/vendor/login", vendorId, vendorPassword)} />
-        </div>
-
-        <div className="rounded-md p-6">
-          <h4 className="text-2xl mb-4">Admin Login</h4>
-          <TextField
-            type="text"
-            label="Admin Username"
-            value={adminUsername}
-            onChange={(e) => setAdminUsername(e.target.value)}
-            className="mb-2"
-          />
-          <TextField
-            type="password"
-            label="Password"
-            value={adminPassword}
-            onChange={(e) => setAdminPassword(e.target.value)}
-            className="mb-2"
-          />
-          <Captcha onCaptchaSubmit={() => handleLogin("/api/admin/login", adminUsername, adminPassword)} />
-        </div>
-      </div>
-    </div>
-  );
-}
+    );
+};
 
 export default Login;
