@@ -1,49 +1,234 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+  Alert,
+  Button,
+  CardActions,
+  CardContent,
+  Divider,
+  TextField,
+} from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
-const Help = () => {
-  const [ticketText, setTicketText] = useState("");
-  const [isTicketSubmitted, setIsTicketSubmitted] = useState(false);
+const Captcha = () => {
+  const randomString = Math.random().toString(36).slice(8);
+  const [captcha, setCaptcha] = useState(randomString);
+  const [text, setText] = useState("");
+  const [valid, setValid] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const submitTicket = () => {
-    setIsTicketSubmitted(true);
-    setTicketText("");
+  const refreshString = () => {
+    setText("");
+    setCaptcha(Math.random().toString(36).slice(8));
+  };
+
+  const matchCaptcha = (event) => {
+    event.preventDefault();
+    if (text === captcha) {
+      setValid(false);
+      setSuccess(true);
+    } else {
+      setValid(true);
+      setSuccess(false);
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center" style={{ backgroundImage: `url('https://example.com/path/to/your/background-image.jpg')` }}>
-      <div className="w-full max-w-md p-6 bg-white rounded-md shadow-md">
-        <h1 className="text-2xl font-bold text-teal-600 mb-4">PharmaEasy Help Center</h1>
-        <p className="text-gray-700 mb-6">
-          Welcome to PharmaEasy's Help Center. For assistance, raise a support ticket below.
-        </p>
+    <>
+      {success && (
+        <Alert variant="outlined" sx={{ marginBottom: "50px" }}>
+          Successful
+        </Alert>
+      )}
+      <div className="card">
+        <Divider />
+        <CardContent>
+          <CardActions>
+            <div className="h3">{captcha}</div>
+            <Button
+              startIcon={<RefreshIcon />}
+              onClick={() => refreshString()}
+            ></Button>
+          </CardActions>
 
-        <div className="mb-4">
-          <textarea
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Describe your issue..."
-            value={ticketText}
-            onChange={(e) => setTicketText(e.target.value)}
-          />
-        </div>
+          <form onSubmit={matchCaptcha}>
+            <TextField
+              label="Enter Captcha"
+              focused
+              value={text}
+              fullWidth
+              onChange={(e) => setText(e.target.value)}
+              error={valid}
+              helperText={valid && "Invalid Captcha"}
+            />
 
-        <button
-          className="w-full bg-teal-600 text-white py-2 px-4 rounded-md cursor-pointer"
-          onClick={submitTicket}
-        >
-          Raise Ticket
-        </button>
-
-        {isTicketSubmitted && (
-          <div className="mt-6">
-            <h3 className="text-xl font-bold text-teal-600 mb-2">Successful Submission</h3>
-            <p className="text-gray-700">
-              We have received your ticket. Our support team will get back to you shortly.
-            </p>
-          </div>
-        )}
+            <Button
+              variant="contained"
+              color="success"
+              type="submit"
+              sx={{ marginTop: "20px" }}
+            >
+              Submit
+            </Button>
+          </form>
+        </CardContent>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Help;
+function Login() {
+  const navigate = useNavigate();
+  const [customerId, setCustomerId] = useState("");
+  const [customerPassword, setCustomerPassword] = useState("");
+  const [vendorId, setVendorId] = useState("");
+  const [vendorPassword, setVendorPassword] = useState("");
+  const [adminUsername, setAdminUsername] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+
+  const handleCustomerLogin = async () => {
+    // Axios request for customer login
+    try {
+      const response = await axios.post("/api/customer/login", {
+        customerId,
+        customerPassword,
+      });
+
+      // Handle the response as needed, e.g., set state or navigate
+      console.log(response.data);
+      navigate("/Home");
+    } catch (error) {
+      // Handle login error
+      console.error("Login error:", error);
+    }
+  };
+
+  const handleVendorLogin = async () => {
+    // Axios request for vendor login
+    try {
+      const response = await axios.post("/api/vendor/login", {
+        vendorId,
+        vendorPassword,
+      });
+
+      // Handle the response as needed, e.g., set state or navigate
+      console.log(response.data);
+      navigate("/VendorHome");
+    } catch (error) {
+      // Handle login error
+      console.error("Login error:", error);
+    }
+  };
+
+  const handleAdminLogin = async () => {
+    // Axios request for admin login
+    try {
+      const response = await axios.post("/api/admin/login", {
+        adminUsername,
+        adminPassword,
+      });
+
+      // Handle the response as needed, e.g., set state or navigate
+      console.log(response.data);
+      navigate("/AdminHome");
+    } catch (error) {
+      // Handle login error
+      console.error("Login error:", error);
+    }
+  };
+
+  return (
+    <>
+      <div className="container bg-primary-subtle h-screen">
+        <h1 className="mb-8 pt-8">Pharmacy App</h1>
+
+        <div className="row">
+          <div className="col bg-info h-96 rounded-md">
+            <h4 className="my-3">Customer Login</h4>
+            <TextField
+              type="text"
+              label="Customer Id"
+              value={customerId}
+              onChange={(e) => setCustomerId(e.target.value)}
+              className="my-2"
+            />
+            <TextField
+              type="password"
+              label="Customer Password"
+              value={customerPassword}
+              onChange={(e) => setCustomerPassword(e.target.value)}
+              className="my-2"
+            />
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              onClick={handleCustomerLogin}
+              className="my-3"
+            >
+              Login
+            </Button>
+            <Captcha />
+          </div>
+
+          <div className="col bg-primary h-96 rounded-md">
+            <h4 className="my-3">Vendor Login</h4>
+            <TextField
+              type="text"
+              label="Vendor Id"
+              value={vendorId}
+              onChange={(e) => setVendorId(e.target.value)}
+              className="my-2"
+            />
+            <TextField
+              type="password"
+              label="Vendor Password"
+              value={vendorPassword}
+              onChange={(e) => setVendorPassword(e.target.value)}
+              className="my-2"
+            />
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              onClick={handleVendorLogin}
+              className="my-3"
+            >
+              Login
+            </Button>
+          </div>
+
+          <div className="col bg-success h-96 rounded-md">
+            <h4 className="my-3">Admin Login</h4>
+            <TextField
+              type="text"
+              label="User Name"
+              value={adminUsername}
+              onChange={(e) => setAdminUsername(e.target.value)}
+              className="my-2"
+            />
+            <TextField
+              type="password"
+              label="Password"
+              value={adminPassword}
+              onChange={(e) => setAdminPassword(e.target.value)}
+              className="my-2"
+            />
+            <Button
+              type="button"
+              variant="contained"
+              color="info"
+              onClick={handleAdminLogin}
+              className="my-3"
+            >
+              Login
+            </Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Login;
