@@ -1,0 +1,127 @@
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Register = () => {
+  let navigate = useNavigate();
+
+  // State for Customer
+  const [customer, setCustomer] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+  });
+
+  // State for Customer errors
+  const [customerErrors, setCustomerErrors] = useState({
+    fullname: "",
+    email: "",
+    mobile: "",
+    username: "",
+    password: "",
+  });
+
+  // State for success message
+  const [successMessage, setSuccessMessage] = useState("");
+
+  // State for error message
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validateCustomer = () => {
+    const errors = {};
+
+    // Example validation - Add more as needed
+    if (!customer.fullname.trim()) {
+      errors.fullname = "Full Name is required";
+    }
+
+    if (!customer.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(customer.email)) {
+      errors.email = "Invalid email format";
+    }
+
+    if (!customer.mobile.trim()) {
+      errors.mobile = "Mobile is required";
+    } else if (!/^\d{10}$/.test(customer.mobile)) {
+      errors.mobile = "Invalid mobile number";
+    }
+
+    if (!customer.username.trim()) {
+      errors.username = "Username is required";
+    }
+
+    if (!customer.password.trim()) {
+      errors.password = "Password is required";
+    }
+
+    setCustomerErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
+  const onInputChange = (e) => {
+    setCustomer({ ...customer, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate customer data
+    const isValid = validateCustomer();
+
+    if (isValid) {
+      try {
+        // Your API endpoint for customer registration
+        const response = await axios.post("http://localhost:8080/customer", customer);
+
+        // Set success message
+        setSuccessMessage("Registration successful");
+
+        // Clear the form and errors
+        setCustomer({
+          fullname: "",
+          email: "",
+          mobile: "",
+          username: "",
+          password: "",
+        });
+        setCustomerErrors({});
+        setErrorMessage(""); // Clear any previous error messages
+
+        // Redirect to login page after successful registration
+        // navigate("/login"); // Uncomment this line if you want to redirect to the login page
+      } catch (error) {
+        console.error("Error during registration:", error.response.data);
+
+        // Set error message
+        setErrorMessage("Error during registration. Please try again.");
+
+        // Clear success message
+        setSuccessMessage("");
+      }
+    }
+  };
+
+  return (
+    <section className="bg-white dark:bg-gray-900">
+      <form onSubmit={onSubmit} className="mt-6">
+        {/* Your form fields go here */}
+
+        <button
+          type="submit"
+          className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+        >
+          Register Customer
+        </button>
+
+        {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
+        {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+      </form>
+    </section>
+  );
+};
+
+export default Register;
