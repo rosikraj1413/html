@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Alert,
   Button,
@@ -9,7 +10,6 @@ import {
   Divider,
   TextField,
 } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
 
 const Captcha = () => {
   const randomString = Math.random().toString(36).slice(8);
@@ -41,11 +41,11 @@ const Captcha = () => {
           Successful
         </Alert>
       )}
-      <div className="card">
+      <div className="card bg-white rounded-md p-6">
         <Divider />
         <CardContent>
           <CardActions>
-            <div className="h3">{captcha}</div>
+            <div className="text-2xl mb-4">{captcha}</div>
             <Button
               startIcon={<RefreshIcon />}
               onClick={() => refreshString()}
@@ -61,6 +61,7 @@ const Captcha = () => {
               onChange={(e) => setText(e.target.value)}
               error={valid}
               helperText={valid && "Invalid Captcha"}
+              className="mb-4"
             />
 
             <Button
@@ -140,25 +141,23 @@ function Login() {
 
   return (
     <>
-      <div className="container bg-primary-subtle h-screen">
-        <h1 className="mb-8 pt-8">Pharmacy App</h1>
-
-        <div className="row">
-          <div className="col bg-info h-96 rounded-md">
-            <h4 className="my-3">Customer Login</h4>
+      <div className="container bg-primary-subtle h-screen flex items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-info h-auto rounded-md p-6">
+            <h4 className="text-2xl mb-4">Customer Login</h4>
             <TextField
               type="text"
               label="Customer Id"
               value={customerId}
               onChange={(e) => setCustomerId(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <TextField
               type="password"
               label="Customer Password"
               value={customerPassword}
               onChange={(e) => setCustomerPassword(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <Button
               type="button"
@@ -169,24 +168,23 @@ function Login() {
             >
               Login
             </Button>
-            <Captcha />
           </div>
 
-          <div className="col bg-primary h-96 rounded-md">
-            <h4 className="my-3">Vendor Login</h4>
+          <div className="bg-primary h-auto rounded-md p-6">
+            <h4 className="text-2xl mb-4">Vendor Login</h4>
             <TextField
               type="text"
               label="Vendor Id"
               value={vendorId}
               onChange={(e) => setVendorId(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <TextField
               type="password"
               label="Vendor Password"
               value={vendorPassword}
               onChange={(e) => setVendorPassword(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <Button
               type="button"
@@ -199,21 +197,21 @@ function Login() {
             </Button>
           </div>
 
-          <div className="col bg-success h-96 rounded-md">
-            <h4 className="my-3">Admin Login</h4>
+          <div className="bg-success h-auto rounded-md p-6">
+            <h4 className="text-2xl mb-4">Admin Login</h4>
             <TextField
               type="text"
               label="User Name"
               value={adminUsername}
               onChange={(e) => setAdminUsername(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <TextField
               type="password"
               label="Password"
               value={adminPassword}
               onChange={(e) => setAdminPassword(e.target.value)}
-              className="my-2"
+              className="mb-2"
             />
             <Button
               type="button"
