@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const CustomerRegister = () => {
   let navigate = useNavigate();
 
   // State for Customer
@@ -91,7 +91,7 @@ const Register = () => {
         setCustomerErrors({});
         setErrorMessage(""); // Clear any previous error messages
 
-        // Redirect to login page after successful registration
+        // Redirect or handle success as needed
         // navigate("/login"); // Uncomment this line if you want to redirect to the login page
       } catch (error) {
         console.error("Error during registration:", error.response.data);
@@ -108,8 +108,66 @@ const Register = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <form onSubmit={onSubmit} className="mt-6">
-        {/* Your form fields go here */}
-
+        <div className="flex-1">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your Full Name"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="fullname"
+            value={customer.fullname}
+            onChange={onInputChange}
+          />
+          <span className="text-red-500">{customerErrors.fullname}</span>
+        </div>
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="email"
+            value={customer.email}
+            onChange={onInputChange}
+          />
+          <span className="text-red-500">{customerErrors.email}</span>
+        </div>
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Mobile</label>
+          <input
+            type="text"
+            placeholder="Enter your mobile number"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="mobile"
+            value={customer.mobile}
+            onChange={onInputChange}
+          />
+          <span className="text-red-500">{customerErrors.mobile}</span>
+        </div>
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Username</label>
+          <input
+            type="text"
+            placeholder="Enter your username"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="username"
+            value={customer.username}
+            onChange={onInputChange}
+          />
+          <span className="text-red-500">{customerErrors.username}</span>
+        </div>
+        <div className="flex-1 mt-6">
+          <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            name="password"
+            value={customer.password}
+            onChange={onInputChange}
+          />
+          <span className="text-red-500">{customerErrors.password}</span>
+        </div>
         <button
           type="submit"
           className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
@@ -124,4 +182,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CustomerRegister;
