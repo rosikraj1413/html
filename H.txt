@@ -65,53 +65,12 @@ function Login() {
   const [adminUsername, setAdminUsername] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
 
-  const handleCustomerLogin = async () => {
-    // Axios request for customer login
+  const handleLogin = async (apiEndpoint, id, password) => {
     try {
-      const response = await axios.post("/api/customer/login", {
-        customerId,
-        customerPassword,
-      });
-
-      // Handle the response as needed, e.g., set state or navigate
+      const response = await axios.post(apiEndpoint, { id, password });
       console.log(response.data);
-      navigate("/Home");
+      navigate("/Home"); // Adjust navigation based on the response
     } catch (error) {
-      // Handle login error
-      console.error("Login error:", error);
-    }
-  };
-
-  const handleVendorLogin = async () => {
-    // Axios request for vendor login
-    try {
-      const response = await axios.post("/api/vendor/login", {
-        vendorId,
-        vendorPassword,
-      });
-
-      // Handle the response as needed, e.g., set state or navigate
-      console.log(response.data);
-      navigate("/VendorHome");
-    } catch (error) {
-      // Handle login error
-      console.error("Login error:", error);
-    }
-  };
-
-  const handleAdminLogin = async () => {
-    // Axios request for admin login
-    try {
-      const response = await axios.post("/api/admin/login", {
-        adminUsername,
-        adminPassword,
-      });
-
-      // Handle the response as needed, e.g., set state or navigate
-      console.log(response.data);
-      navigate("/AdminHome");
-    } catch (error) {
-      // Handle login error
       console.error("Login error:", error);
     }
   };
@@ -119,9 +78,62 @@ function Login() {
   return (
     <div className="container bg-primary-subtle h-screen flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Captcha onCaptchaSubmit={handleCustomerLogin} />
-        <Captcha onCaptchaSubmit={handleVendorLogin} />
-        <Captcha onCaptchaSubmit={handleAdminLogin} />
+        <div className="bg-info h-auto rounded-md p-6">
+          <h4 className="text-2xl mb-4">Customer Login</h4>
+          <TextField
+            type="text"
+            label="Customer ID"
+            value={customerId}
+            onChange={(e) => setCustomerId(e.target.value)}
+            className="mb-2"
+          />
+          <TextField
+            type="password"
+            label="Password"
+            value={customerPassword}
+            onChange={(e) => setCustomerPassword(e.target.value)}
+            className="mb-2"
+          />
+          <Captcha onCaptchaSubmit={() => handleLogin("/api/customer/login", customerId, customerPassword)} />
+        </div>
+
+        <div className="bg-primary h-auto rounded-md p-6">
+          <h4 className="text-2xl mb-4">Vendor Login</h4>
+          <TextField
+            type="text"
+            label="Vendor ID"
+            value={vendorId}
+            onChange={(e) => setVendorId(e.target.value)}
+            className="mb-2"
+          />
+          <TextField
+            type="password"
+            label="Password"
+            value={vendorPassword}
+            onChange={(e) => setVendorPassword(e.target.value)}
+            className="mb-2"
+          />
+          <Captcha onCaptchaSubmit={() => handleLogin("/api/vendor/login", vendorId, vendorPassword)} />
+        </div>
+
+        <div className="bg-success h-auto rounded-md p-6">
+          <h4 className="text-2xl mb-4">Admin Login</h4>
+          <TextField
+            type="text"
+            label="Admin Username"
+            value={adminUsername}
+            onChange={(e) => setAdminUsername(e.target.value)}
+            className="mb-2"
+          />
+          <TextField
+            type="password"
+            label="Password"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+            className="mb-2"
+          />
+          <Captcha onCaptchaSubmit={() => handleLogin("/api/admin/login", adminUsername, adminPassword)} />
+        </div>
       </div>
     </div>
   );
