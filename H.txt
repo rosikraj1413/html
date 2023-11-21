@@ -34,3 +34,57 @@ const Help = () => {
 };
 
 export default Help;
+////
+
+/* Add these styles to your CSS file or component */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4; /* Light gray background */
+  color: #333; /* Dark gray text color */
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  color: #008080; /* Teal color for headings */
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px;
+}
+
+button {
+  background-color: #008080; /* Teal color for the button */
+  color: #fff; /* White text color */
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #006666; /* Darker teal color on hover */
+}
+
+div {
+  margin-top: 20px;
+}
+
+h3 {
+  color: #008080; /* Teal color for subsection headings */
+}
+
+/* Additional styles can be added as needed */
