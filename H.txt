@@ -78,7 +78,7 @@ function Login() {
   return (
     <div className="container bg-primary-subtle h-screen flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-info h-auto rounded-md p-6">
+        <div className="rounded-md p-6">
           <h4 className="text-2xl mb-4">Customer Login</h4>
           <TextField
             type="text"
@@ -97,7 +97,7 @@ function Login() {
           <Captcha onCaptchaSubmit={() => handleLogin("/api/customer/login", customerId, customerPassword)} />
         </div>
 
-        <div className="bg-primary h-auto rounded-md p-6">
+        <div className="rounded-md p-6">
           <h4 className="text-2xl mb-4">Vendor Login</h4>
           <TextField
             type="text"
@@ -116,7 +116,7 @@ function Login() {
           <Captcha onCaptchaSubmit={() => handleLogin("/api/vendor/login", vendorId, vendorPassword)} />
         </div>
 
-        <div className="bg-success h-auto rounded-md p-6">
+        <div className="rounded-md p-6">
           <h4 className="text-2xl mb-4">Admin Login</h4>
           <TextField
             type="text"
@@ -139,4 +139,4 @@ function Login() {
   );
 }
 
-export default Login;
+export
