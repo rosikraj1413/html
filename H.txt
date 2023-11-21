@@ -2,80 +2,57 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-  Alert,
-  Button,
-  CardActions,
-  CardContent,
-  Divider,
-  TextField,
-} from "@mui/material";
+import { TextField } from "@mui/material";
 
-const Captcha = () => {
+const Captcha = ({ onCaptchaSubmit }) => {
   const randomString = Math.random().toString(36).slice(8);
   const [captcha, setCaptcha] = useState(randomString);
   const [text, setText] = useState("");
   const [valid, setValid] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const refreshString = () => {
     setText("");
     setCaptcha(Math.random().toString(36).slice(8));
   };
 
-  const matchCaptcha = (event) => {
-    event.preventDefault();
+  const matchCaptcha = () => {
     if (text === captcha) {
       setValid(false);
-      setSuccess(true);
+      onCaptchaSubmit();
     } else {
       setValid(true);
-      setSuccess(false);
     }
   };
 
   return (
-    <>
-      {success && (
-        <Alert variant="outlined" sx={{ marginBottom: "50px" }}>
-          Successful
-        </Alert>
-      )}
-      <div className="card bg-white rounded-md p-6">
-        <Divider />
-        <CardContent>
-          <CardActions>
-            <div className="text-2xl mb-4">{captcha}</div>
-            <Button
-              startIcon={<RefreshIcon />}
-              onClick={() => refreshString()}
-            ></Button>
-          </CardActions>
-
-          <form onSubmit={matchCaptcha}>
-            <TextField
-              label="Enter Captcha"
-              focused
-              value={text}
-              fullWidth
-              onChange={(e) => setText(e.target.value)}
-              error={valid}
-              helperText={valid && "Invalid Captcha"}
-              className="mb-4"
-            />
-
-            <Button
-              variant="contained"
-              color="success"
-              type="submit"
-              sx={{ marginTop: "20px" }}
-            >
-              Submit
-            </Button>
-          </form>
-        </CardContent>
+    <div className="bg-white rounded-md p-6">
+      <div className="text-2xl mb-4">{captcha}</div>
+      <div className="flex items-center mb-4">
+        <TextField
+          label="Enter Captcha"
+          focused
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          error={valid}
+          helperText={valid && "Invalid Captcha"}
+          className="mr-2"
+        />
+        <button
+          className="bg-success text-white py-2 px-4 rounded-md"
+          onClick={matchCaptcha}
+        >
+          Login
+        </button>
       </div>
-    </>
+      <div className="text-center">
+        <button
+          className="text-info hover:underline"
+          onClick={refreshString}
+        >
+          Refresh Captcha
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -140,92 +117,13 @@ function Login() {
   };
 
   return (
-    <>
-      <div className="container bg-primary-subtle h-screen flex items-center justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-info h-auto rounded-md p-6">
-            <h4 className="text-2xl mb-4">Customer Login</h4>
-            <TextField
-              type="text"
-              label="Customer Id"
-              value={customerId}
-              onChange={(e) => setCustomerId(e.target.value)}
-              className="mb-2"
-            />
-            <TextField
-              type="password"
-              label="Customer Password"
-              value={customerPassword}
-              onChange={(e) => setCustomerPassword(e.target.value)}
-              className="mb-2"
-            />
-            <Button
-              type="button"
-              variant="contained"
-              color="primary"
-              onClick={handleCustomerLogin}
-              className="my-3"
-            >
-              Login
-            </Button>
-          </div>
-
-          <div className="bg-primary h-auto rounded-md p-6">
-            <h4 className="text-2xl mb-4">Vendor Login</h4>
-            <TextField
-              type="text"
-              label="Vendor Id"
-              value={vendorId}
-              onChange={(e) => setVendorId(e.target.value)}
-              className="mb-2"
-            />
-            <TextField
-              type="password"
-              label="Vendor Password"
-              value={vendorPassword}
-              onChange={(e) => setVendorPassword(e.target.value)}
-              className="mb-2"
-            />
-            <Button
-              type="button"
-              variant="contained"
-              color="secondary"
-              onClick={handleVendorLogin}
-              className="my-3"
-            >
-              Login
-            </Button>
-          </div>
-
-          <div className="bg-success h-auto rounded-md p-6">
-            <h4 className="text-2xl mb-4">Admin Login</h4>
-            <TextField
-              type="text"
-              label="User Name"
-              value={adminUsername}
-              onChange={(e) => setAdminUsername(e.target.value)}
-              className="mb-2"
-            />
-            <TextField
-              type="password"
-              label="Password"
-              value={adminPassword}
-              onChange={(e) => setAdminPassword(e.target.value)}
-              className="mb-2"
-            />
-            <Button
-              type="button"
-              variant="contained"
-              color="info"
-              onClick={handleAdminLogin}
-              className="my-3"
-            >
-              Login
-            </Button>
-          </div>
-        </div>
+    <div className="container bg-primary-subtle h-screen flex items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Captcha onCaptchaSubmit={handleCustomerLogin} />
+        <Captcha onCaptchaSubmit={handleVendorLogin} />
+        <Captcha onCaptchaSubmit={handleAdminLogin} />
       </div>
-    </>
+    </div>
   );
 }
 
